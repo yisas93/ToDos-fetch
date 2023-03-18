@@ -4,7 +4,16 @@
     
     width: 500px;
     height: auto;
-    font-family: cursive;
+   
     font-size: large;
     text-decoration-color: chartreuse;
 }    
+.tasks{
+
+    max-width: 500px;
+    box-shadow: 4px 3px 3px black;
+    display: flex;
+    justify-content: center ;
+    margin: auto;
+    margin-top: 5rem;
+}

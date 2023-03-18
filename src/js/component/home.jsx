@@ -80,6 +80,27 @@ const Home = () => {
 			setNewTask("")
 		}
 	}
+	async function newTaskButton(){
+		//ingres la nueva tarea a la  lista
+		
+			if(tasks.length==0){
+				let resp=await fetch(apiUrl, {
+					method: "POST",
+					body: JSON.stringify([]),
+					headers:{"Content-Type":"application/json"}
+				})
+				if(resp.ok){
+					console.log("lista creada")
+
+				}else{
+					console.error(resp.status+ ": " + resp.statusText)				
+					return
+				}
+			}
+			setTasks([...tasks,{label:newTask, done:false}])
+			setNewTask("")
+		}
+	
 	async function deleteTask(index){
 		//elimina la tarea de la lista
 		let newTasks=[...tasks]
@@ -93,16 +114,17 @@ const Home = () => {
 		setTasks(newTasks)
 	}
 	return (
-		<div className="d-flex justify-content-center m-5" id="bigd">
+		<div className="d-flex justify-content-center  tasks" >
 			
 			<ul className="list-group" id="ul">
-				<li className="list-group-item">
+				<li className="list-group-item d-flex">
 					<input 
 					type="text" 
 					value={newTask} 
 					onChange={(e)=>newTaskChange(e.target.value)} 
 					onKeyDown={(e)=>newTaskEnter(e)}
 					className="form-control"/>
+					<button onClick={()=>newTaskButton()} className="btn btn-success">Add</button>
 				</li>
 				{tasks.map((task,index)=>(
 					<li key={index} className="list-group-item d-flex justify-content-between">
